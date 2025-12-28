@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Reliable Resource Services LLC | Accounting, HR & ERP</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
@@ -47,36 +47,18 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-<!--
-         .logo {
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: var(--primary-blue);
-            text-decoration: none;
-        }
- -->
 		.logo-link {
             text-decoration: none;
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 0rem;
         }
 
         .logo-img {
-            height: 120px; /* Increased size for center prominence */
+            height: 80px; /* Adjusted for better nav balance */
             width: auto;
-            margin-bottom: 0px;
         }
 
-        .logo-text {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            color: var(--primary-blue);
-            text-align: center;
-            font-size: 1.4rem;
-            letter-spacing: 1px;
-        }
         .nav-links {
             list-style: none;
             display: flex;
@@ -84,7 +66,6 @@
 
         .nav-links li {
             margin-left: 2rem;
-            position: relative;
         }
 
         .nav-links a {
@@ -96,6 +77,23 @@
 
         .nav-links a:hover {
             color: var(--primary-green);
+        }
+
+        /* Hamburger Styles */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--primary-blue);
+            border-radius: 3px;
+            transition: 0.3s;
         }
 
         /* Hero Section */
@@ -123,23 +121,17 @@
             transition: background 0.3s;
         }
 
-        .btn:hover {
-            background: var(--dark-green);
-        }
+        .btn:hover { background: var(--dark-green); }
 
-        /* Sections */
         section { padding: 80px 10%; }
         .section-title { text-align: center; margin-bottom: 3rem; color: var(--primary-blue); font-size: 2rem; }
 
-        /* Trust Statement */
         .trust-box {
             background: var(--bg-light);
             padding: 40px;
             border-left: 5px solid var(--primary-green);
-            margin-bottom: 0px;
         }
 
-        /* Services Grid */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -154,16 +146,11 @@
             transition: transform 0.3s;
         }
 
-        .service-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary-blue);
-        }
-
+        .service-card:hover { transform: translateY(-10px); border-color: var(--primary-blue); }
         .service-card h3 { color: var(--primary-blue); margin-bottom: 1rem; }
         .service-card ul { text-align: left; list-style: none; margin: 1.5rem 0; font-size: 0.9rem; }
         .service-card li::before { content: "✔ "; color: var(--primary-green); }
 
-        /* Footer */
         footer {
             background: var(--primary-blue);
             color: var(--white);
@@ -171,13 +158,45 @@
             text-align: center;
         }
 
+        /* Mobile Adjustments */
         @media (max-width: 768px) {
-            .nav-links { display: none; }
+            .hamburger { display: flex; }
+
+            .nav-links {
+                display: none; /* Hidden by default on mobile */
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                display: flex; /* Shown when hamburger is clicked */
+            }
+
+            .nav-links li {
+                margin: 1rem 0;
+                text-align: center;
+            }
+
             .hero h1 { font-size: 1.8rem; }
         }
-		section[id] {
-			scroll-margin-top: 5rem; /* Adjust based on your nav height */
-		}
+
+		section[id] { scroll-margin-top: 5rem; }
+
+        /* Form Styles */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; margin-top: 30px; }
+        .contact-form { display: flex; flex-direction: column; }
+        .contact-form input, .contact-form select, .contact-form textarea { padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; }
+        .contact-form label { font-weight: bold; margin-bottom: 5px; }
+
+        @media (max-width: 768px) {
+            .contact-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -185,9 +204,15 @@
     <nav>
         <a href="#" class="logo-link">
             <img src="logo.png" alt="Reliable Resource Services LLC" class="logo-img">
-            <!-- <span class="logo-text">RELIABLE RESOURCE SERVICES LLC</span> -->
         </a>
-        <ul class="nav-links">
+        
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <ul class="nav-links" id="nav-links">
             <li><a href="#">Home</a></li>
             <li><a href="#services">Our Services</a></li>
             <li><a href="#who">Our Clients</a></li>
@@ -199,7 +224,7 @@
     <header class="hero" id="home">
         <h1>Reliable Resource Accounting & HR Services</h1>
         <h2>Accounting. Human Resources. ERP Systems.</h2>
-        <p>Starting up a new business or running one is hard enough without juggling accounting issues, HR compliance, and disconnected systems. Reliable Resource Services provides integrated back-office support that brings clarity, structure, and confidence to your operations.  We help you get organized so you can concentrate on building your business.</p>
+        <p>Reliable Resource Services provides integrated back-office support that brings clarity, structure, and confidence to your operations.</p>
         <a href="#contact" class="btn">Contact Us</a>
     </header>
 
@@ -321,45 +346,24 @@
         </div>
     </div>
 </section>
-<style>
-    /* New Styles for the Form */
-    .contact-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 50px;
-        margin-top: 30px;
-    }
-
-    .contact-form {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .contact-form input, .contact-form select, .contact-form textarea {
-        padding: 12px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-family: inherit;
-    }
-
-    .contact-form label {
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
-
-    .contact-section {
-        background-color: white;
-    }
-
-    @media (max-width: 768px) {
-        .contact-grid { grid-template-columns: 1fr; }
-    }
-</style>
-
     <footer>
         <p>&copy; 2025 Reliable Resource Services LLC. All Rights Reserved.</p>
     </footer>
 
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
 </body>
 </html>
