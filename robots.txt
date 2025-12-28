@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemaps help search engines find your one-page site faster
+Sitemap: https://www.reliableresourceservices.com/sitemap.xml
